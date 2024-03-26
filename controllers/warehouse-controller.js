@@ -1,6 +1,25 @@
 const knex = require("knex")(require("../knexfile"));
 
-const getAllWarehouses = async (req, res) => {};
+const getAllWarehouses = async (req, res) => {
+  try {
+    const getWarehouse = await knex('warehouses')
+      .select(
+        'id', 
+        'warehouse_name', 
+        'address', 
+        'city', 
+        'country', 
+        'contact_name', 
+        'contact_position', 
+        'contact_phone', 
+        'contact_email'
+      )
+    res.json(getWarehouse);
+    res.status('200')
+  } catch {
+    res.status('400').json({message: "bruh no data."})
+  }
+};
 
 const createWarehouse = async (req, res) => {
   if (
@@ -21,5 +40,6 @@ const createWarehouse = async (req, res) => {
 };
 
 module.exports = {
+  getAllWarehouses,
   createWarehouse,
 };
