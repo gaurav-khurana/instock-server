@@ -11,12 +11,14 @@ app.use(cors());
 
 // middleware for JSON format
 app.use(express.json());
+console.log("Middleware DONE");
 
 // routes path
-// place here
+const warehouseRoutes = require("./routes/routes-warehouse");
+app.use("/", warehouseRoutes);
+console.log("i run this");
 
 // listen to server
-app.use(PORT, () => {
+app.listen(PORT, () => {
   console.log("Listening to port ", PORT);
-  console.log("To Quit server - Ctrl + C");
 });
