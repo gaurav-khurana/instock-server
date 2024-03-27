@@ -35,7 +35,7 @@ const getOneWarehouse = async (req, res) => {
     }
 
     const warehouseData = getWarehouse[0];
-    res.json(warehouseData);
+    res.status(200).json(warehouseData);
   } catch(error) {
     res.status(500).json({
       message: `bruh we cant get warehouse with id ${req.params.id}`,
