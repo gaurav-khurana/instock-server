@@ -99,10 +99,48 @@ const deleteWarehouse = async (req, res) => {
   }
 };
 
+// PUT/EDIT a Warehouse
+
+const putWarehouse = async (req, res) => {
+  // check if data is available!
+  if (
+    !req.body.warehouse_name ||
+    !req.body.address ||
+    !req.body.city ||
+    !req.body.country ||
+    !req.body.contact_name ||
+    !req.body.contact_position ||
+    !req.body.contact_phone ||
+    !req.body.contact_email
+  ) {
+    res.status(400).send("Can't edit Warehouse. Missing details!");
+  }
+
+  // phone number & email validation
+  if (!req.body.contact_phone || !req.body.contact_email) {
+    res.status(400).json({ message: `Missing Phone number or Email address` });
+  }
+
+  try {
+    const updatedWarehouse = await knex("warehouses").where({ id: req.params.id }).update(req.body);
+
+    if (updatedWarehouse === 0) {
+      return res.status(404).json({ message: `Warehouse with ID ${req.params.id} not found`});
+    }
+
+    // const updatedDataWarehouse = updatedWarehouse[0];
+    res.status(200).json({message: `${req.body.warehouse_name} details updated.`});
+  } catch(error) {
+    res.status(500).json({message: `Error updating warehouse ${error}`})
+  }
+}
+
+
 
 module.exports = {
   getAllWarehouses,
   getOneWarehouse,
+  putWarehouse,
   addWarehouse,
   deleteWarehouse,
 };
