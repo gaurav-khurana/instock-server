@@ -7,16 +7,22 @@ require("dotenv").config();
 const { PORT } = process.env;
 
 // middleware for cors
-app.use("cors");
+app.use(cors());
 
 // middleware for JSON format
 app.use(express.json());
+console.log("Middleware DONE");
 
-// routes path
-// place here
+// routes path - warehouses
+const warehouseRoutes = require("./routes/routes-warehouse");
+app.use("/", warehouseRoutes);
+
+// routes path - inventories
+const inventoriesRoutes = require("./routes/routes-inventories");
+app.use("/", inventoriesRoutes);
+console.log("i run this");
 
 // listen to server
-app.use(PORT, () => {
+app.listen(PORT, () => {
   console.log("Listening to port ", PORT);
-  console.log("To Quit server - Ctrl + C");
 });
