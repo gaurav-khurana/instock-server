@@ -16,11 +16,33 @@ const getAllWarehouses = async (req, res) => {
       "contact_email"
     );
     res.json(getWarehouse);
-    res.status("200");
+    res.status(200);
   } catch {
-    res.status("400").json({ message: "bruh no data." });
+    res.status(400).json({ message: "bruh no data." });
   }
 };
+
+// Get method to get a SINGLE warehouse
+
+const getOneWarehouse = async (req, res) => {
+  try {
+    const getWarehouse = await knex("warehouses").where({ id: req.params.id });
+
+    if (getWarehouse.length === 0) {
+      return res.status(404).json({
+        message: `bruh warehouse ${ req.params.id } not found`
+      });
+    }
+
+    const warehouseData = getWarehouse[0];
+    res.status(200).json(warehouseData);
+  } catch(error) {
+    res.status(500).json({
+      message: `bruh we cant get warehouse with id ${req.params.id}`,
+    });
+  }
+}
+
 
 // post method to Create New Warehouse
 
@@ -79,6 +101,7 @@ const deleteWarehouse = async (req, res) => {
 
 module.exports = {
   getAllWarehouses,
+  getOneWarehouse,
   addWarehouse,
   deleteWarehouse,
 };
