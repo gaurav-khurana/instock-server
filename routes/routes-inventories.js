@@ -2,6 +2,9 @@ const router = require("express").Router();
 require("dotenv").config();
 const inventories_controller = require("../controllers/inventories-controller");
 // route for inventories
+router.route("/inventories/")
+    .get(inventories_controller.getAllInventories)
+    .post(inventories_controller.addInventory);
 
 
 
@@ -9,6 +12,9 @@ const inventories_controller = require("../controllers/inventories-controller");
 router.route("/inventories/:id")
 .get(inventories_controller.getSingleInventory)
 .put(inventories_controller.putInventory);
+
+//delete an ineventory
+router.route("/inventories/:id").delete(inventories_controller.deleteInventory);
 
 module.exports = router;
 
