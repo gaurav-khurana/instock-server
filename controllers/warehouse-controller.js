@@ -99,6 +99,7 @@ const deleteWarehouse = async (req, res) => {
   }
 };
 
+
 module.exports = {
   getAllWarehouses,
   getOneWarehouse,

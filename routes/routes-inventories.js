@@ -3,3 +3,5 @@ require("dotenv").config();
 const inventories_controller = require("../controllers/inventories-controller");
 
 // route for inventories
+
+module.exports = router;
