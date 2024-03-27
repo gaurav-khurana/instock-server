@@ -1,5 +1,7 @@
 const knex = require("knex")(require("../knexfile"));
 
+// Get method to get all warehouses
+
 const getAllWarehouses = async (req, res) => {
   try {
     const getWarehouse = await knex("warehouses").select(
@@ -57,7 +59,26 @@ const addWarehouse = async (req, res) => {
   }
 };
 
+// Delete method to Delete a Warehouse
+
+const deleteWarehouse = async (req, res) => {
+  try {
+    const rowDeleted = await knex("warehouses")
+      .where({ id: req.params.id })
+      .del();
+
+    if (rowDeleted === 0) {
+      res.status(404).json({ message: `${req.params.id} WAREHOUSE NOT FOUND` });
+    }
+
+    return res.status(204).json({ message: `WAREHOUSE DELETED` });
+  } catch (error) {
+    res.status(500).json({ message: `Unable to delete ${error}` });
+  }
+};
+
 module.exports = {
   getAllWarehouses,
   addWarehouse,
+  deleteWarehouse,
 };
