@@ -64,5 +64,6 @@ const addWarehouse = async (req, res) => {
 };
 
 module.exports = {
+  getAllWarehouses,
   addWarehouse,
 };
