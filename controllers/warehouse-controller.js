@@ -2,24 +2,25 @@ const knex = require("knex")(require("../knexfile"));
 
 const getAllWarehouses = async (req, res) => {
   try {
-    const getWarehouse = await knex('warehouses')
-      .select(
-        'id', 
-        'warehouse_name', 
-        'address', 
-        'city', 
-        'country', 
-        'contact_name', 
-        'contact_position', 
-        'contact_phone', 
-        'contact_email'
-      )
+    const getWarehouse = await knex("warehouses").select(
+      "id",
+      "warehouse_name",
+      "address",
+      "city",
+      "country",
+      "contact_name",
+      "contact_position",
+      "contact_phone",
+      "contact_email"
+    );
     res.json(getWarehouse);
-    res.status('200')
+    res.status("200");
   } catch {
-    res.status('400').json({message: "bruh no data."})
+    res.status("400").json({ message: "bruh no data." });
   }
 };
+
+// post method to Create New Warehouse
 
 const addWarehouse = async (req, res) => {
   // check for missing details
@@ -41,14 +42,11 @@ const addWarehouse = async (req, res) => {
     res.status(400).json({ message: `Missing Phone number or Email address` });
   }
 
+  //
   try {
     const response = await knex("warehouses").insert(req.body);
     console.log(response);
-    // const newWarehouse = response[0];
 
-    // const createdWarehouse = await knex("warehouses").where({
-    //   id: newWarehouse.id,
-    // });
     res.status(201).json({
       message: `New warehouse added ${req.body.warehouse_name} ${req.body}`,
     });
