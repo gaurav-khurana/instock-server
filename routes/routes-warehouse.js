@@ -9,7 +9,9 @@ router
   .post(warehouse_controller.addWarehouse);
 
 // route to get single warehouse
-router.route("/warehouses/:id").get(warehouse_controller.getOneWarehouse);
+router.route("/warehouses/:id")
+  .get(warehouse_controller.getOneWarehouse)
+  .put(warehouse_controller.putWarehouse);
 
 // route to delete warehouse
 router.route("/warehouses/:id").delete(warehouse_controller.deleteWarehouse);
