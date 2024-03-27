@@ -135,8 +135,6 @@ const putWarehouse = async (req, res) => {
   }
 }
 
-
-
 module.exports = {
   getAllWarehouses,
   getOneWarehouse,
