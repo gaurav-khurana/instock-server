@@ -1,5 +1,3 @@
-const { all } = require("../routes/routes-inventories");
-
 const knex = require("knex")(require("../knexfile"));
 
 // func to Get Single Inventory Item by Id
@@ -66,8 +64,26 @@ const getAllInventories = async (req, res) => {
   }
 };
 
+//delete a single inventory
+const deleteInventory = async (req, res) => {
+  try {
+    const rowDeleted = await knex("inventories")
+      .where({ id: req.params.id })
+      .del();
+
+    if (rowDeleted === 0) {
+      res.status(404).json({ message: `${req.params.id} Inventory was not found` });
+    }
+
+    return res.status(204).json({ message: `Inventory is deleted` });
+  } catch (error) {
+    res.status(500).json({ message: `Unable to delete ${error}` });
+  }
+};
+
 
 module.exports = {
   getSingleInventory,
-  getAllInventories
+  getAllInventories,
+  deleteInventory,
 };
