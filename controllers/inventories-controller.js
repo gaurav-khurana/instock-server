@@ -65,9 +65,48 @@ const getAllInventories = async (req, res) => {
     res.status(500).json({ message: "cant get All Inventories" });
   }
 };
+// check if id is in warehouses database
+async function isIdAvailable(id) {
+    const checkId = await knex("warehouses").where({id: id});
+    return checkId; // if not exist (true)
+}
+
+// POST/CREATE a new inventory item
+
+const addInventory = async (req, res) => {
+    if (
+        !req.body.warehouse_id ||
+        !req.body.item_name ||
+        !req.body.description ||
+        !req.body.category ||
+        !req.body.status ||
+        !req.body.quantity
+    ) {
+        res.status(400).json({message: `Unsuccessful! Missing Details!`});
+    }
+    
+    // Check if warehouse id exist
+    const idExist = await isIdAvailable(req.body.warehouse_id);
+    if (idExist) {
+        res.status(400).json({message: `Warehouse ${req.body.warehouse_id} don't exist`});
+    }
+
+    // Check if quanity is a number
+    if (!req.body.quantity) { // figure out how to check if its number or not making sure that the its still string
+        res.status(400).json({message: `Quantity must be a number`});
+    }
+
+    try {
+        const inventoryData = await knex("inventories").insert(req.body);
+        res.status(201).json(inventoryData);
+    } catch(error) {
+        res.status(500).json({message: `Adding inventory item FAILED ${error}`});
+    }
+}
 
 
 module.exports = {
   getSingleInventory,
-  getAllInventories
+  getAllInventories,
+  addInventory
 };
