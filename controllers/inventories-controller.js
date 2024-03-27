@@ -1,5 +1,3 @@
-const { all } = require("../routes/routes-inventories");
-
 const knex = require("knex")(require("../knexfile"));
 
 // func to Get Single Inventory Item by Id
