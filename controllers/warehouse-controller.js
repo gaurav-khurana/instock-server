@@ -22,20 +22,16 @@ const addWarehouse = async (req, res) => {
     res.status(400).json({ message: `Missing Phone number or Email address` });
   }
 
-  // phone number validation
-  //   if (req.body.contact_phone.length !== 10) {
-  //     res.status(400).json({ message: `Invalid phone number` });
-  //   }
-
   try {
     const response = await knex("warehouses").insert(req.body);
-    const newWarehouse = response[0];
+    console.log(response);
+    // const newWarehouse = response[0];
 
-    const createdWarehouse = await knex("warehouses").where({
-      id: newWarehouse.id,
-    });
+    // const createdWarehouse = await knex("warehouses").where({
+    //   id: newWarehouse.id,
+    // });
     res.status(201).json({
-      message: `New warehouse added ${newWarehouse.id} ${newWarehouse.warehouse_name} ${createdWarehouse}`,
+      message: `New warehouse added ${req.body.warehouse_name} ${req.body}`,
     });
   } catch (error) {
     res
