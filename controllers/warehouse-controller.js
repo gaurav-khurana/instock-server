@@ -71,7 +71,7 @@ const deleteWarehouse = async (req, res) => {
       res.status(404).json({ message: `${req.params.id} WAREHOUSE NOT FOUND` });
     }
 
-    res.status(204).json({ message: `WAREHOUSE DELETED` });
+    return res.status(204).json({ message: `WAREHOUSE DELETED` });
   } catch (error) {
     res.status(500).json({ message: `Unable to delete ${error}` });
   }
