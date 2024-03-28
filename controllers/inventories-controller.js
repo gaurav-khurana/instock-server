@@ -69,7 +69,6 @@ console.log(updatedInventory);
 
 
 // getAllinventories in BackEnd
-
 const getAllInventories = async (req, res) => {
   try {
     const allInventories = await knex("inventories").select(
@@ -111,6 +110,7 @@ const getAllInventories = async (req, res) => {
     res.status(500).json({ message: "cant get All Inventories" });
   }
 };
+
 // check if id is in warehouses database
 async function isIdAvailable(id) {
     const checkId = await knex("warehouses").where({id: id});
@@ -118,7 +118,6 @@ async function isIdAvailable(id) {
 }
 
 // POST/CREATE a new inventory item
-
 const addInventory = async (req, res) => {
     if (
         !req.body.warehouse_id ||
@@ -151,7 +150,6 @@ const addInventory = async (req, res) => {
 }
 
 //delete a single inventory
-
 const deleteInventory = async (req, res) => {
   try {
     const rowDeleted = await knex("inventories")
