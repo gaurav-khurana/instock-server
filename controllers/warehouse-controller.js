@@ -15,8 +15,8 @@ const getAllWarehouses = async (req, res) => {
       "contact_phone",
       "contact_email"
     );
-    res.json(getWarehouse);
-    res.status(200);
+
+    res.status(200).json(getWarehouse);
   } catch {
     res.status(400).json({ message: "bruh no data." });
   }
