@@ -7,10 +7,6 @@ const getAllInventorySingleWarehouse = async (req, res) => {
         
         const warehouseId = req.params.id;
         const getWarehouse = await knex("warehouses").where({id: warehouseId});
-
-        console.log(getWarehouse)
-
-        console.log('i m here');
         
         if (getWarehouse.length === 0) {
             return res.status(404).json({
