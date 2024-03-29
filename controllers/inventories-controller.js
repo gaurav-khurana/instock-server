@@ -136,7 +136,7 @@ const addInventory = async (req, res) => {
 
   // Check if warehouse id exist
   const idExist = await isIdAvailable(req.body.warehouse_id);
-  if (idExist) {
+  if (idExist === false) {
     res
       .status(400)
       .json({ message: `Warehouse ${req.body.warehouse_id} don't exist` });
