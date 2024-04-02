@@ -38,14 +38,6 @@ const putInventory = async (req, res) => {
     res.status(400).send(`Can't edit Inventory. Missing details!`);
   }
 
-  // if (warehouse_id == undefined) {
-  //   res.status(400).json({ message: `Warehouse ID does not exist in the warehouses table`})
-  // }
-
-  // if (inventories.quantity !== 'number' ) {
-  //   res.status(400).json({ message: `The Quantity is NOT a Number`})
-  // }
-
   if (typeof req.body.quantity !== "number") {
     res.status(400).json({ message: `The Quantity is NOT a Number` });
   }
@@ -62,7 +54,6 @@ const putInventory = async (req, res) => {
         .json({ message: `Inventory with ID ${req.params.id} not found` });
     }
 
-    // const updatedDataWarehouse = updatedWarehouse[0];
     res.status(200).json({ message: `${req.body.item_name} details updated.` });
   } catch (error) {
     res.status(500).json({ message: `Error updating inventory ${error}` });

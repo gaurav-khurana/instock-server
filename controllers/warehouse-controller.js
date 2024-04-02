@@ -135,7 +135,6 @@ const putWarehouse = async (req, res) => {
         .json({ message: `Warehouse with ID ${req.params.id} not found` });
     }
 
-    // const updatedDataWarehouse = updatedWarehouse[0];
     res
       .status(200)
       .json({ message: `${req.body.warehouse_name} details updated.` });
