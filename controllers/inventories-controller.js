@@ -143,9 +143,8 @@ const addInventory = async (req, res) => {
   }
 
   // Check if quanity is a number
-  if (!req.body.quantity) {
-    // figure out how to check if its number or not making sure that the its still string
-    res.status(400).json({ message: `Quantity must be a number` });
+  if (!req.body.quantity || isNaN(req.body.quantity)) {
+    return res.status(400).json({ message: `Quantity must be a valid number` });
   }
 
   try {
