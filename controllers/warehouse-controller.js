@@ -58,11 +58,13 @@ const addWarehouse = async (req, res) => {
     !req.body.contact_email
   ) {
     res.status(400).send("Can't add Warehouse. Missing details");
+    return;
   }
 
   // phone number & email validation
   if (!req.body.contact_phone || !req.body.contact_email) {
     res.status(400).json({ message: `Missing Phone number or Email address` });
+    return;
   }
 
   //
@@ -113,11 +115,13 @@ const putWarehouse = async (req, res) => {
     !req.body.contact_email
   ) {
     res.status(400).send("Can't edit Warehouse. Missing details!");
+    return;
   }
 
   // phone number & email validation
   if (!req.body.contact_phone || !req.body.contact_email) {
     res.status(400).json({ message: `Missing Phone number or Email address` });
+    return;
   }
 
   try {
