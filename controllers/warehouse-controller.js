@@ -15,8 +15,8 @@ const getAllWarehouses = async (req, res) => {
       "contact_phone",
       "contact_email"
     );
-    res.json(getWarehouse);
-    res.status(200);
+
+    res.status(200).json(getWarehouse);
   } catch {
     res.status(400).json({ message: "bruh no data." });
   }
@@ -30,19 +30,18 @@ const getOneWarehouse = async (req, res) => {
 
     if (getWarehouse.length === 0) {
       return res.status(404).json({
-        message: `bruh warehouse ${ req.params.id } not found`
+        message: `bruh warehouse ${req.params.id} not found`,
       });
     }
 
     const warehouseData = getWarehouse[0];
     res.status(200).json(warehouseData);
-  } catch(error) {
+  } catch (error) {
     res.status(500).json({
       message: `bruh we cant get warehouse with id ${req.params.id}`,
     });
   }
-}
-
+};
 
 // post method to Create New Warehouse
 
@@ -59,11 +58,13 @@ const addWarehouse = async (req, res) => {
     !req.body.contact_email
   ) {
     res.status(400).send("Can't add Warehouse. Missing details");
+    return;
   }
 
   // phone number & email validation
   if (!req.body.contact_phone || !req.body.contact_email) {
     res.status(400).json({ message: `Missing Phone number or Email address` });
+    return;
   }
 
   //
@@ -114,28 +115,33 @@ const putWarehouse = async (req, res) => {
     !req.body.contact_email
   ) {
     res.status(400).send("Can't edit Warehouse. Missing details!");
+    return;
   }
 
   // phone number & email validation
   if (!req.body.contact_phone || !req.body.contact_email) {
     res.status(400).json({ message: `Missing Phone number or Email address` });
+    return;
   }
 
   try {
-    const updatedWarehouse = await knex("warehouses").where({ id: req.params.id }).update(req.body);
+    const updatedWarehouse = await knex("warehouses")
+      .where({ id: req.params.id })
+      .update(req.body);
 
     if (updatedWarehouse === 0) {
-      return res.status(404).json({ message: `Warehouse with ID ${req.params.id} not found`});
+      return res
+        .status(404)
+        .json({ message: `Warehouse with ID ${req.params.id} not found` });
     }
 
-    // const updatedDataWarehouse = updatedWarehouse[0];
-    res.status(200).json({message: `${req.body.warehouse_name} details updated.`});
-  } catch(error) {
-    res.status(500).json({message: `Error updating warehouse ${error}`})
+    res
+      .status(200)
+      .json({ message: `${req.body.warehouse_name} details updated.` });
+  } catch (error) {
+    res.status(500).json({ message: `Error updating warehouse ${error}` });
   }
-}
-
-
+};
 
 module.exports = {
   getAllWarehouses,

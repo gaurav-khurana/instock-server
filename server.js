@@ -22,6 +22,9 @@ const inventoriesRoutes = require("./routes/routes-inventories");
 app.use("/", inventoriesRoutes);
 console.log("i run this");
 
+const combinedRoutes = require('./routes/routes-combined');
+app.use("/", combinedRoutes)
+
 // listen to server
 app.listen(PORT, () => {
   console.log("Listening to port ", PORT);
